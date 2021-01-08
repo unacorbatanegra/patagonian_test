@@ -1,0 +1,41 @@
+name: patagonian_test
+description: A new Flutter project.
+
+publish_to: "none"
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.0
+  get: ^3.24.0
+  hive: ^1.4.2
+  hive_flutter: ^0.3.1
+  cached_network_image: ^2.5.0
+  uuid: any
+  http: ^0.12.2
+  connectivity: ^2.0.2
+  intl: ^0.16.1
+  flutter_icons: 1.1.0
+
+dev_dependencies:
+  pedantic: ^1.9.0
+  hive_generator: ^0.7.1
+  effective_dart: ^1.0.0
+  flutter_test:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/
+  fonts:
+    - family: Lato
+      fonts:
+        - asset: assets/fonts/Lato-Italic.ttf
