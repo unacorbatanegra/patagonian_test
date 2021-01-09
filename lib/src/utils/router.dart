@@ -11,5 +11,15 @@ mixin CustomRouter {
       page: () => HomePage(),
       binding: HomeBinding(),
     ),
+    GetPage(
+      name: RouteName.lyric,
+      page: () => LyricPage(),
+      binding: LyricBinding(),
+    ),
+    GetPage(
+      name: RouteName.history,
+      page: () => HistoryPage(),
+      binding: HistoryBinding(),
+    ),
   ];
 }

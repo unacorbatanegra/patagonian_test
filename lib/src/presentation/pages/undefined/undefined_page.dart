@@ -11,7 +11,7 @@ class UndefinedPage extends StatelessWidget {
       ),
       body: Container(
         child: const Center(
-          child: Text('Were sorry this page is acttually under development'),
+          child: Text('Were sorry this page is actually under development'),
         ),
       ),
     );

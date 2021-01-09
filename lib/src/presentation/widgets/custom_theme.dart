@@ -8,24 +8,28 @@ mixin CustomTheme {
     primaryColor: Palette.primary,
     backgroundColor: Colors.white,
     scaffoldBackgroundColor: Colors.white,
-    primaryColorBrightness: Brightness.dark,
+    primaryColorBrightness: Brightness.light,
     accentColor: Palette.accent,
-    accentColorBrightness: Brightness.light,
+    accentColorBrightness: Brightness.dark,
     floatingActionButtonTheme: FloatingActionButtonThemeData(
       backgroundColor: Palette.accent,
       foregroundColor: Colors.white,
     ),
+    iconTheme: IconThemeData(
+      color: Palette.accent,
+    ),
     appBarTheme: AppBarTheme(
-      brightness: Brightness.dark,
-      color: Palette.primary,
+    
+      brightness: Brightness.light,
+      color: Colors.white,
       centerTitle: false,
-      actionsIconTheme: const IconThemeData(size: 25, color: Colors.white),
+      actionsIconTheme: const IconThemeData(size: 25, color: Palette.accent),
       textTheme: TextTheme(
         headline6: TextStyle(
-          color: Colors.white,
+          color: Palette.primary,
           fontSize: 25,
           fontFamily: 'Lato',
-          fontWeight: FontWeight.normal,
+          fontWeight: FontWeight.bold,
         ),
       ),
     ),
