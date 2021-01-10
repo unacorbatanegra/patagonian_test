@@ -8,7 +8,7 @@ mixin CustomTheme {
     primaryColor: Palette.primary,
     backgroundColor: Colors.white,
     scaffoldBackgroundColor: Colors.white,
-    primaryColorBrightness: Brightness.light,
+    primaryColorBrightness: Brightness.dark,
     accentColor: Palette.accent,
     accentColorBrightness: Brightness.dark,
     floatingActionButtonTheme: FloatingActionButtonThemeData(

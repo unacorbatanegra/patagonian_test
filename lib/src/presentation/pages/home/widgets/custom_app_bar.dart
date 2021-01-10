@@ -34,10 +34,6 @@ class CustomAppBar extends StatelessWidget implements PreferredSize {
       ],
       leading: CachedNetworkImage(
         imageUrl: 'https://patagonian.it/assets/img/favicon.png',
-        progressIndicatorBuilder: (context, url, progress) =>
-            CircularProgressIndicator(
-          value: progress.progress,
-        ),
       ),
       bottom: PreferredSize(
         preferredSize: null,
