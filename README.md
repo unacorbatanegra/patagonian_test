@@ -1,16 +1,30 @@
-# patagonian_test
+# Patagonian Test
 
-A new Flutter project.
+Lyrics search app.
+Two ways of UI code was madded just to `showCase` what can be done.
 
-## Getting Started
+## Run the app
 
-This project is a starting point for a Flutter application.
+Flutter Version: `1.22.5 stable channel`
 
-A few resources to get you started if this is your first Flutter project:
+    cd patagonian_test/
+    flutter run 
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+No extra steps required.
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Preview
+
+|Home  | Lyrics |
+:------:|:------|
+|![home](https://user-images.githubusercontent.com/44511181/104130464-a030b300-534f-11eb-9fec-eda62ab628f8.png)|![lyrics](https://user-images.githubusercontent.com/44511181/104130466-a1fa7680-534f-11eb-8c08-fb0463db9cd3.png)|
+
+## Libraries used
+
+- Hive
+- GetX
+- Connectivity
+
+### Additional note
+
+I wish I could use original Icons but I didn't find
+with a good resolution so I let the application icon by flutter default.

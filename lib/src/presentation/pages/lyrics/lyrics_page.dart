@@ -21,33 +21,34 @@ class LyricsPage extends GetView<LyricsController> {
           onPressed: Get.back,
         ),
       ),
-      body: Obx(
-        () => controller.isLoading
-            ? const Center(
-                child: CircularProgressIndicator(),
-              )
-            : Container(
-                margin: const EdgeInsets.symmetric(
-                  horizontal: 24.0,
-                  vertical: 10.0,
+      // in this case, this stateMixin usage is just a showcase of what
+      // can be done with GetX
+      body: controller.obx(
+        (state) => Container(
+          margin: const EdgeInsets.symmetric(
+            horizontal: 24.0,
+            vertical: 10.0,
+          ),
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                const SizedBox(height: 24.0),
+                ListTile(
+                  contentPadding: EdgeInsets.zero,
+                  title: Text(controller.lyrics.artistName),
+                  subtitle: Text(controller.lyrics.songName),
                 ),
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      const SizedBox(height: 24.0),
-                      ListTile(
-                        contentPadding: EdgeInsets.zero,
-                        title: Text(controller.lyrics.artistName),
-                        subtitle: Text(controller.lyrics.songName),
-                      ),
-                      const Divider(),
-                      const SizedBox(height: 6.0),
-                      Text(controller.lyrics.lyrics),
-                      const SizedBox(height: 56.0)
-                    ],
-                  ),
-                ),
-              ),
+                const Divider(),
+                const SizedBox(height: 6.0),
+                Text(controller.lyrics.lyrics),
+                const SizedBox(height: 56.0)
+              ],
+            ),
+          ),
+        ),
+        onLoading: const Center(
+          child: CircularProgressIndicator(),
+        ),
       ),
     );
   }
