@@ -14,7 +14,6 @@ class SearchWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(search.hashCode);
     return ListTile(
       contentPadding: EdgeInsets.zero,
       title: Text(search.artistName),

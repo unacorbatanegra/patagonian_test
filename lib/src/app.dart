@@ -27,7 +27,7 @@ class App extends StatelessWidget {
           ),
         ),
         debugShowCheckedModeBanner: false,
-        locale: const Locale('es', 'AR'),
+        locale: const Locale('en', 'US'),
         getPages: CustomRouter.routes,
         localizationsDelegates: const [
           GlobalMaterialLocalizations.delegate,
@@ -36,7 +36,7 @@ class App extends StatelessWidget {
         ],
         theme: CustomTheme.theme,
         supportedLocales: [
-          const Locale('es', 'AR'),
+          const Locale('en', 'US'),
         ],
       ),
     );

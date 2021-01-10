@@ -13,8 +13,8 @@ mixin CustomRouter {
     ),
     GetPage(
       name: RouteName.lyric,
-      page: () => LyricPage(),
-      binding: LyricBinding(),
+      page: () => LyricsPage(),
+      binding: LyricsBinding(),
     ),
     GetPage(
       name: RouteName.history,

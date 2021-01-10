@@ -1,8 +1,7 @@
 import '../domain.dart';
 
 class SearchDomain extends Domain<Search> {
-  static final lastResults = <Search>[];
-
+  final _boxName = 'searches';
   Future<ApiResponse<Search>> fetch(Search search) async {
     final result = await httpRepository.fetchData(
       'https://api.lyrics.ovh/v1/${search.artistName}/${search.songName}',
@@ -10,8 +9,10 @@ class SearchDomain extends Domain<Search> {
     );
     if (result.data.lyrics.isNotEmpty && !result.hasError) {
       result.data = result.data.update(search);
-      lastResults.add(result.data);
+      hiveRepository.add(_boxName, result.data);
     }
     return result;
   }
+
+  List<Search> get lastResults => hiveRepository.getList(_boxName);
 }

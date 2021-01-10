@@ -34,6 +34,11 @@ class CustomAppBar extends StatelessWidget implements PreferredSize {
       ],
       leading: CachedNetworkImage(
         imageUrl: 'https://patagonian.it/assets/img/favicon.png',
+        imageBuilder: (context, imageProvider) => Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(image: imageProvider, fit: BoxFit.contain),
+          ),
+        ),
       ),
       bottom: PreferredSize(
         preferredSize: null,
@@ -52,7 +57,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSize {
             ),
             RaisedButton(
               onPressed: search,
-              color: canSearch ? Palette.accent : Colors.grey,
+              color: Palette.accent,
               child: Text(
                 'Search',
                 style: const TextStyle(
@@ -60,7 +65,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSize {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-            )
+            ),
+            const SizedBox(height: 6.0)
           ],
         ),
       ),

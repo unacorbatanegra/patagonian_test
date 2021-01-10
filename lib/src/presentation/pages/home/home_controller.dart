@@ -8,11 +8,11 @@ import '../../../utils/utils.dart';
 import 'extension.dart';
 
 class HomeController extends GetxController {
-  final conectivity = Connectivity();
+  final connectivity = Connectivity();
   final _isLoading = false.obs;
   final _isSearching = false.obs;
   final _canSearch = false.obs;
-  final _internetAcces = true.obs;
+  final _internetAccess = true.obs;
 
   final artistName = TextEditingController();
   final songName = TextEditingController();
@@ -20,6 +20,8 @@ class HomeController extends GetxController {
   final _response = Rx<ApiResponse<Search>>();
 
   final _isNotSearchingYet = true.obs;
+  final timer = Stopwatch();
+  final _minRequestSeconds = 8;
   @override
   void onInit() {
     init();
@@ -30,14 +32,15 @@ class HomeController extends GetxController {
 
   void onHistory() => Get.toNamed(
         RouteName.history,
-        arguments: SearchDomain.lastResults,
+        arguments: repository.lastResults,
       );
 
   void init() async {
     _isLoading.toggle();
-    conectivity.onConnectivityChanged.listen(
+
+    connectivity.onConnectivityChanged.listen(
       (result) {
-        _internetAcces.value = result != ConnectivityResult.none;
+        _internetAccess.value = result != ConnectivityResult.none;
         if (result == ConnectivityResult.none) {
           Get.showSnackBar(
             SnackBar(
@@ -56,8 +59,18 @@ class HomeController extends GetxController {
   void checkCanSearch() => _canSearch.value =
       artistName.text.isNotEmpty && songName.text.isNotEmpty && internetAccess;
 
-  void search() async {
-    if (!canSearch) return;
+  void _search() async {
+    if (!canSearch || isTheSameRequest) return;
+    if (!serverTimeIsAvailable && timer.isRunning) {
+      DialogHelper.infoDialog('Woah there, too fast', '''
+Must wait ${_minRequestSeconds - timer.elapsed.inSeconds} seconds to search again''');
+      return;
+    }
+    final hasConnection = await connectivity.checkConnectivity();
+    if (hasConnection == ConnectivityResult.none) {
+      DialogHelper.infoDialog('INFORMATION', 'No internet connection :(');
+      return;
+    }
     _isSearching.value = true;
     _isLoading.toggle();
     if (isNotSearchingYet) _isNotSearchingYet.value = false;
@@ -67,31 +80,38 @@ class HomeController extends GetxController {
         songName: songName.text.trim(),
       ),
     );
+    timer.reset();
+    timer.start();
     _isNotSearchingYet.value = false;
-    print(_response.value.data.lyrics);
     _isLoading.toggle();
   }
+
+  VoidCallback get searchCallBack => canSearch ? _search : null;
 
   bool get isLoading => _isLoading.value;
   bool get isSearching => _isSearching.value;
   bool get canSearch => _canSearch.value;
   Search get response => _response.value?.data;
   bool get isNotSearchingYet => _isNotSearchingYet.value;
-  bool get internetAccess => _internetAcces.value;
+  bool get internetAccess => _internetAccess.value;
   String get errorMessage => _response.value?.errorMessage ?? '';
   bool get hasError => _response.value?.hasError;
   bool get notFound =>
       (_response.value?.data?.lyrics?.isEmpty ?? true) && !isNotSearchingYet;
-
-  bool get hasPreviusResults =>
-      SearchDomain.lastResults.isNotEmpty &&
-      SearchDomain.lastResults.last != response;
-
+  bool get serverTimeIsAvailable =>
+      timer.elapsed.inSeconds > _minRequestSeconds;
+  bool get hasPreviousResults =>
+      repository.lastResults.isNotEmpty &&
+      repository.lastResults.first != response;
+  bool get isTheSameRequest => response != null
+      ? ((response?.artistName == artistName.text.trim()) &&
+          (response?.songName == songName.text.trim()))
+      : false;
   Search get lastSearch =>
-      hasPreviusResults ? SearchDomain?.lastResults?.last : null;
+      hasPreviousResults ? repository.lastResults?.first : null;
 
   void onTapResult() => Get.toNamed(RouteName.lyric, arguments: response);
-  void onTapPrevius() => Get.toNamed(RouteName.lyric, arguments: lastSearch);
+  void onTapPrevious() => Get.toNamed(RouteName.lyric, arguments: lastSearch);
 
   @override
   void onClose() {

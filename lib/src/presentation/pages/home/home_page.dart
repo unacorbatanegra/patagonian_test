@@ -13,63 +13,62 @@ class HomePage extends GetView<HomeController> {
   Widget build(BuildContext context) {
     const gap8 = SizedBox(height: 8.0);
     return Obx(
-      () => SafeArea(
-        child: Scaffold(
-          appBar: CustomAppBar(
-            artistName: controller.artistName,
-            songName: controller.songName,
-            canSearch: controller.canSearch,
-            search: controller.search,
-            onHistory: controller.onHistory,
-          ),
-          body: Obx(
-            () => controller.isLoading
-                ? Container(
-                    color: Colors.white,
-                    child: circularIndicator,
-                  )
-                : Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 24.0),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        gap8,
-                        gap8,
-                        Visibility(
-                          visible: controller.hasPreviusResults,
-                          child: PreviusResults(
-                            lastSearch: controller.lastSearch,
-                            onTap: controller.onTapPrevius,
-                          ),
+      () => Scaffold(
+        appBar: CustomAppBar(
+          artistName: controller.artistName,
+          songName: controller.songName,
+          canSearch: controller.canSearch,
+          search: controller.searchCallBack,
+          onHistory: controller.onHistory,
+        ),
+        body: Obx(
+          () => controller.isLoading
+              ? circularIndicator
+              : Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 24.0),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      gap8,
+                      gap8,
+                      Visibility(
+                        visible: controller.hasPreviousResults,
+                        child: PreviusResults(
+                          lastSearch: controller.lastSearch,
+                          onTap: controller.onTapPrevious,
                         ),
-                        Expanded(
-                          child: controller.isSearching
-                              ? controller.notFound
-                                  ? Center(
-                                      child: const Text(
-                                        'We cannot find your song :(',
-                                      ),
-                                    )
-                                  : controller.hasError
-                                      ? Center(
-                                          child: Text(controller.errorMessage),
-                                        )
-                                      : SearchWidget(
-                                          search: controller.response,
-                                          onTap: controller.onTapResult,
-                                        )
-                              : Center(
-                                  child: const Text(
-                                    'Introduce some artist to search',
-                                  ),
-                                ),
-                        )
-                      ],
-                    ),
+                      ),
+                      Expanded(
+                        child: controller.isSearching
+                            ? controller.notFound
+                                ? const _InfoWidget(
+                                    'We cannot find your song :(')
+                                : controller.hasError
+                                    ? _InfoWidget(controller.errorMessage)
+                                    : SearchWidget(
+                                        search: controller.response,
+                                        onTap: controller.onTapResult,
+                                      )
+                            : const _InfoWidget(
+                                'Introduce some artist and song to search'),
+                      )
+                    ],
                   ),
-          ),
+                ),
         ),
       ),
     );
+  }
+}
+
+class _InfoWidget extends StatelessWidget {
+  final String label;
+  const _InfoWidget(
+    this.label, {
+    Key key,
+  }) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return Center(child: Text(label));
   }
 }

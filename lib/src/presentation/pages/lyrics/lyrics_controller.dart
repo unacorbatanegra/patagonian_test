@@ -2,8 +2,8 @@ import 'package:get/get.dart';
 
 import '../../../models/models.dart';
 
-class LyricController extends GetxController {
-  final _lyric = Rx<Search>();
+class LyricsController extends GetxController {
+  final _lyrics = Rx<Search>();
   final _isLoading = false.obs;
   @override
   void onInit() {
@@ -13,10 +13,10 @@ class LyricController extends GetxController {
 
   void init() {
     _isLoading.toggle();
-    _lyric.value = Get.arguments as Search;
+    _lyrics.value = Get.arguments as Search;
     _isLoading.toggle();
   }
 
-  Search get lyric => _lyric.value;
+  Search get lyrics => _lyrics.value;
   bool get isLoading => _isLoading.value;
 }

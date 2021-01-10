@@ -18,7 +18,7 @@ class PreviusResults extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: [
-        const Text('Previus searchs...'),
+        const Text('Previous searches...'),
         const Divider(),
         SearchWidget(
           search: lastSearch,
