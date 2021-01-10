@@ -1,7 +1,7 @@
 # Patagonian Test
 
 Lyrics search app.
-Two ways of UI code was madded just to `showCase` what can be done.
+Two ways of UI code was made to showCase what can be done.
 
 ## Run the app
 
