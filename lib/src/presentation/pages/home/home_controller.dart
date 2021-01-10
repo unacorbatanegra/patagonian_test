@@ -76,8 +76,8 @@ Must wait ${_minRequestSeconds - timer.elapsed.inSeconds} seconds to search agai
     if (isNotSearchingYet) _isNotSearchingYet.value = false;
     _response.value = await repository.fetch(
       Search(
-        artistName: artistName.text.trim(),
-        songName: songName.text.trim(),
+        artistName: artistName.text.trim().replaceAll(RegExp('\\s+'), ' '),
+        songName: songName.text.trim().replaceAll(RegExp('\\s+'), ' '),
       ),
     );
     timer.reset();
