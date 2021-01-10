@@ -4,7 +4,7 @@ import '../../../models/models.dart';
 
 class LyricsController extends GetxController with StateMixin<Search> {
   final _lyrics = Rx<Search>();
-  final _isLoading = false.obs;
+
   @override
   void onInit() {
     init();
@@ -18,5 +18,4 @@ class LyricsController extends GetxController with StateMixin<Search> {
   }
 
   Search get lyrics => _lyrics.value;
-  bool get isLoading => _isLoading.value;
 }
